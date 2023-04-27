@@ -1,0 +1,3 @@
+[submodule "server/lifelike"]
+	path = server/lifelike
+	url = https://github.com/lifelike-toolkit/lifelike.git
