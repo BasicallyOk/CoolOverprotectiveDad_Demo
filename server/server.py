@@ -1,16 +1,17 @@
 from flask import Flask
 from flask_cors import CORS
 import json
-
 import chromadb
-from chromadb.config import Settings
 
-# Need to reconfigure for deployment
-client = chromadb.Client(Settings(chroma_api_impl="rest",
-                                  chroma_server_host="localhost",
-                                  chroma_server_http_port=8000)) 
+from lifelike.toolkit.sequence_manager.build_sequence_tree import SequenceTreeBuilder
 
-collection = client.get_collection(name="cool_overprotective_dad")
+CHROMA_CLIENT = chromadb.Client() 
+CHROMA_CLIENT.reset()
+CHROMA_CLIENT.create_collection(name="cool_overprotective_dad")
+
+tree_builder = SequenceTreeBuilder.build_from_json("./cod.json")
+
+collection = CHROMA_CLIENT.get_collection(name="cool_overprotective_dad")
 
 app = Flask(__name__)
 CORS(app)
