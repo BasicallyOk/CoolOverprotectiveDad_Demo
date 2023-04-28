@@ -3,13 +3,14 @@ from flask_cors import CORS
 import json
 import chromadb
 
-from lifelike.toolkit.sequence_manager.build_sequence_tree import SequenceTreeBuilder
+from lifelike.toolkit.sequence_manager.tree_builder import SequenceTreeBuilder
 
 CHROMA_CLIENT = chromadb.Client() 
 CHROMA_CLIENT.reset()
 CHROMA_CLIENT.create_collection(name="cool_overprotective_dad")
 
 tree_builder = SequenceTreeBuilder.build_from_json("./cod.json")
+tree_builder.write_db(CHROMA_CLIENT)
 
 collection = CHROMA_CLIENT.get_collection(name="cool_overprotective_dad")
 
